@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BATCAVE</title>
+
+  <style>
+    body {
+      
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #loading-screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 1);
+      color: white;
+      z-index: 9999;
+      transition: opacity 1s ease-in-out;
+      opacity: 1;
+      /* Initial opacity to show the loading screen */
+    }
+
+    #progress-container {
+      width: 10%;
+      background-color: grey;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #progress-bar {
+      width: 0%;
+      height: 10px;
+      background-color: rgb(255, 255, 255);
+    }
+
+    #image-container {
+      text-align: center;
+      margin-top: 20%;
+    }
+
+    #image {
+      max-width: 100%;
+      max-height: 100px;
+    }
+
+    #fade-overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      z-index: 9998;
+      opacity: 0;
+      /* Initial opacity to hide the overlay */
+      transition: opacity 1s ease-in-out;
+    }
+
+    .modal {
+      display: flex;
+      /* Enable flex */
+      justify-content: center;
+      /* Center horizontally */
+      align-items: center;
+      /* Center vertically */
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: #000000;
+      border: 2px solid white;
+      width: 1400px;
+      height: 1100px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      margin: 0;
+      padding: 10px;
+      color: white;
+      /* added this just in case */
+    }
+
+    #terminal {
+      flex: 1;
+      /* Takes the remaining space */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+      color: white;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 20px;
+      padding: 10px;
+      width: 1300px;
+      border: 2px solid white;
+      overflow: none;
+      white-space: pre-wrap;
+      text-shadow: 0 0 5px white;
+      box-sizing: border-box;
+    }
+
+    #terminalModal {
+      box-sizing: border-box;
+      visibility: hidden;
+      display: none;
+      position: fixed;
+      left: 52%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+
+    #clickMe {
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      overflow: hidden;
+      z-index: 9999;
+    }
+
+    #button-container {
+      position: absolute;
+      /* Position it absolutely */
+      top: 620px;
+      width: 100%;
+      /* Make it span the full width of the terminal */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      gap: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 0px;
+      /* Reduced margin */
+      cursor: pointer;
+      background-color: #000000;
+      border: 1px solid rgb(255, 255, 255);
+      font-family: "Courier New", Courier, monospace;
+      color: rgb(255, 255, 255);
+      text-shadow: 0 0 5px white;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      /* Smooth transition */
+    }
+
+    button:hover {
+      background-color: #ffffff;
+      /* White background */
+      color: #000000;
+      /* Black text */
+      text-shadow: 0 0 5px #000000;
+    }
+  </style>
+</head>
+<script type="module" src="main.js"></script>
+<script>
+  let progress = 0; // Initialize to 0
+  const maxProgress = 100; // Maximum value for the progress bar
+
+  let interval = setInterval(() => {
+    if (progress < maxProgress) {
+      progress += 10;
+      document.getElementById("progress-bar").style.width = `${progress}%`;
+    }
+
+    if (progress >= maxProgress) {
+      clearInterval(interval);
+      hideLoadingScreen();
+    }
+  }, 200);
+
+  function hideLoadingScreen() {
+    const loadingScreen = document.getElementById("loading-screen");
+    loadingScreen.style.opacity = "0";
+    setTimeout(() => {
+      loadingScreen.style.display = "none";
+    });
+  }
+
+  let hasFinishedWriting = false;
+  function writeToTerminal(terminal, text, index) {
+    if (hasFinishedWriting) return;
+    if (index < text.length) {
+      terminal.textContent += text[index];
+      setTimeout(() => {
+        writeToTerminal(terminal, text, index + 1);
+      }, 100); // Consider increasing this delay as well
+      let hasFinishedWriting = true;
+    }
+  }
+</script>
+
+<script type="module" src="main.js"></script>
+<script>
+  progress = 0; // Initialize to 0
+  maxProgress = 100; // Maximum value for the progress bar
+
+  // Update the progress bar every 500ms
+  interval = setInterval(() => {
+    if (progress < maxProgress) {
+      progress += 10; // Increase the progress by 10 each time
+      document.getElementById("progress-bar").style.width = `${progress}%`;
+    }
+    if (progress >= maxProgress) {
+      clearInterval(interval); // Stop the interval
+      hideLoadingScreen(); // Call the function to hide the loading screen
+    }
+  }, 200); // Update every 500 milliseconds
+
+  function hideLoadingScreen() {
+    document.getElementById("loading-screen").style.opacity = "0"; // Fade out the loading screen
+    setTimeout(() => {
+      document.getElementById("loading-screen").style.display = "none"; // Hide the loading screen
+    }, 2000); // Wait for the fade-out transition to complete
+  }
+</script>
+
+<body>
+  <button id="clickMe">Click Me</button>
+
+  <div id="fade-overlay"></div>
+
+  <div id="loading-screen">
+    <div id="image-container">
+      <img id="image" src="images/BB Logo White.png" alt="Image" />
+    </div>
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+  </div>
+
+  <div id="terminalModal" class="modal">
+    <div class="modal-content">
+      <div id="terminal"></div>
+    </div>
+    <span class="close">&times;</span>
+  </div>
+  </div>
+
+
+</body>
+
+</html>
