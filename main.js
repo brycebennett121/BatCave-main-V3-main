@@ -317,45 +317,45 @@ W   W  EEEEE  LLLLL  CCCC  OOO  M   M EEEEE`;
     setTimeout(() => {
         writeToTerminal(terminal, firstMessage, 0);
         let hasFinishedWriting = false;
-    }, 1000);
+    }, 3000);
 
     setTimeout(() => {
         terminal.textContent = ''; // Clear the terminal if you want to
         writeToTerminal(terminal, secondMessage, 0);
         let hasFinishedWriting = false;
-    }, 3000 + firstMessage.length * typeSpeed);
+    }, 5000 + firstMessage.length * typeSpeed);
 
     setTimeout(() => {
         writeToTerminal(terminal, thirdMessage, 0);
         let hasFinishedWriting = false;
-    }, 5000 + (firstMessage.length + secondMessage.length) * typeSpeed);
+    }, 7000 + (firstMessage.length + secondMessage.length) * typeSpeed);
 
     setTimeout(() => {
         writeToTerminal(terminal, fourthMessage, 0);
         let hasFinishedWriting = false;
-    }, 7000 + (firstMessage.length + secondMessage.length + thirdMessage.length) * typeSpeed);
+    }, 9000 + (firstMessage.length + secondMessage.length + thirdMessage.length) * typeSpeed);
 
     setTimeout(() => {
         writeToTerminalFaster(terminal, fifthMessage, 0);
         let hasFinishedWriting = false;
-    }, 10000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length) * typeSpeed);
+    }, 12000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length) * typeSpeed);
 
     setTimeout(() => {
         terminal.textContent = ''; // Clear the terminal
         let hasFinishedWriting = false;
         terminal.innerHTML = terminal.innerHTML = '<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; margin-top: -50px;"><span style="font-size: 80px; text-align: center;">BRYCE BENNETT</span><span style="font-size: 40px; text-align: center;">Graphic Designer</span></div>';
 
-    }, 5000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
+    }, 15000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
 
     setTimeout(() => {
         insertButtonsIntoTerminal(terminal);
         let hasFinishedWriting = false;
-    }, 5000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
+    }, 15000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
     let hasFinishedWriting = true;
 }
 
 function writeToTerminalFaster(terminal, message, index) {
-    const typeSpeed = 6; // Faster speed for fifth message
+    const typeSpeed = 1; // Faster speed for fifth message
     if (index < message.length) {
         terminal.textContent += message[index];
         setTimeout(() => writeToTerminalFaster(terminal, message, index + 1), typeSpeed);
@@ -377,7 +377,7 @@ function openTerminal() {
                 modal.style.display = "none";
             }
         };
-    }, 600);  // Change 2000 to the number of milliseconds you'd like to delay
+    }, 2000);  // Change 2000 to the number of milliseconds you'd like to delay
 }
 
 function animate() {
