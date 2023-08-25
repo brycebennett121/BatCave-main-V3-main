@@ -8,7 +8,6 @@
 
   <style>
     body {
-      
       margin: 0;
       overflow: hidden;
     }
@@ -29,6 +28,7 @@
 
     #progress-container {
       width: 10%;
+      height: 1%;
       background-color: grey;
       position: fixed;
       top: 50%;
@@ -38,18 +38,22 @@
 
     #progress-bar {
       width: 0%;
-      height: 10px;
+      height: 100%;
       background-color: rgb(255, 255, 255);
     }
 
     #image-container {
+      position: fixed;
+      width: 10%;
       text-align: center;
-      margin-top: 20%;
+      top: 43%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     #image {
       max-width: 100%;
-      max-height: 100px;
+      max-height: 100%;
     }
 
     #fade-overlay {
@@ -124,8 +128,8 @@
 
     #clickMe {
       position: absolute;
-      top: 100px;
-      left: 100px;
+      top: 90%;
+      left: 48%;
       overflow: hidden;
       z-index: 9999;
     }
@@ -150,6 +154,7 @@
       cursor: pointer;
       background-color: #000000;
       border: 1px solid rgb(255, 255, 255);
+      border-shadow: 0 0 2.5px white;
       font-family: "Courier New", Courier, monospace;
       color: rgb(255, 255, 255);
       text-shadow: 0 0 5px white;
@@ -230,7 +235,7 @@
 </script>
 
 <body>
-  <button id="clickMe">Click Me</button>
+  <button id="clickMe">Click Me!</button>
 
   <div id="fade-overlay"></div>
 

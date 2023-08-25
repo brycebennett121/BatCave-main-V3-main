@@ -11,19 +11,19 @@ document.getElementById("loading-screen").style.display = "block";
 
 scene.fog = new THREE.Fog(0xaaaaaa, 0.2);
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(4, 1, 6);
+const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(4, 0.5, 6);
 
 
 // Store original camera position for resetting
-const originalCameraPosition = new THREE.Vector3(4, 1, 6);
+const originalCameraPosition = new THREE.Vector3(4, 0.5, 6);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.2);
 directionalLight.position.set(0, 1, 1).normalize();
