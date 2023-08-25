@@ -277,17 +277,18 @@ function insertButtonsIntoTerminal(terminal) {
     // Add event listeners to the buttons
     document.getElementById("about-button").addEventListener("click", function () {
         console.log("About button clicked");
-        window.open(currentURL, '_blank'); // Opens a new window with the current URL
+        terminal.textContent = '';
+        
     });
 
     document.getElementById("projects-button").addEventListener("click", function () {
         console.log("Projects button clicked");
-        window.open(currentURL, '_blank'); // Opens a new window with the current URL
+        terminal.textContent = '';
     });
 
     document.getElementById("contact-button").addEventListener("click", function () {
         console.log("Contact button clicked");
-        window.open(currentURL, '_blank'); // Opens a new window with the current URL
+        terminal.textContent = '';
     });
 }
 
