@@ -61,16 +61,26 @@ scene.add(yellowFloodLight2);
 
 // Function to reset camera angle
 const resetCameraAngle = () => {
-
+    console.log("here")
     camera.lookAt(0, 0, 0);
-    isAnimatingCamera = true, cameraTargetPosition = new THREE.Vector3(4, 1, 6);
+    isAnimatingCamera = true, cameraTargetPosition = new THREE.Vector3(4, 0.5, 6);
 };
 
 // Listen for Escape key press
 window.addEventListener('keydown', (event) => {
     if (event.code === 'Escape') {
-        resetCameraAngle();
-        closeTerminal();
+        console.log("here")
+        const terminalModal = document.getElementById("terminalModal");
+        const portfolioTerminalModal = document.getElementById("portfolioTerminalModal");
+
+
+        if (portfolioTerminalModal.style.display == "flex") {
+            console.log("there")
+            closeTerminal(portfolioTerminalModal);
+        } else if (terminalModal.style.display == "flex") {
+            closeTerminal(terminalModal);
+            resetCameraAngle();
+        }
 
     }
 });
@@ -250,18 +260,27 @@ const changeCameraAngle = () => {
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-function closeTerminal() {
-    const modal = document.getElementById("terminalModal");
-    modal.style.visibility = "hidden";
+function closeTerminal(terminalModal) {
+    document.getElementById("terminal").innerHTML = ""
+    const clickMeButton = document.getElementById("clickMe");
+
+    terminalModal.style.display = "none";
+
+    clickMeButton.style.display = "block"; // Show the button
 }
 
-document.getElementById("clickMe").onclick = onMouseClick;
+const modal = document.getElementById("terminalModal");
+modal.style.display = "none";
 
 
-function onButtonClick(event) {
-    alert(event.target.id);
-}
-// ...
+document.getElementById("clickMe").onclick = onClickMe;
+
+
+
+
+
+
+
 
 // Add this function to insert buttons into the terminal
 function insertButtonsIntoTerminal(terminal) {
@@ -278,12 +297,12 @@ function insertButtonsIntoTerminal(terminal) {
     document.getElementById("about-button").addEventListener("click", function () {
         console.log("About button clicked");
         terminal.textContent = '';
-        
+
     });
 
     document.getElementById("projects-button").addEventListener("click", function () {
         console.log("Projects button clicked");
-        terminal.textContent = '';
+        openPortfolioTerminal(); // Open the portfolio terminal here
     });
 
     document.getElementById("contact-button").addEventListener("click", function () {
@@ -295,13 +314,32 @@ function insertButtonsIntoTerminal(terminal) {
 
 let hasFinishedWriting = false;
 
-function onMouseClick(event) {
-    console.log("here")
+function openPortfolioTerminal() {
+    const portfolioTerminalModal = document.getElementById("portfolioTerminalModal");
+    portfolioTerminalModal.style.display = "flex"; // or "flex" based on your requirement
+    const portfolioTerminal = document.getElementById("portfolioTerminal");
+    portfolioTerminal.innerHTML = "<h1>My Portfolio</h1>";
+
+    // Insert your portfolio content here. You can use HTML and JavaScript to create an interactive terminal for your projects.
+}
+function writeToTerminal(terminal, text, index,speed) {
+  if (hasFinishedWriting) return;
+  if (index < text.length) {
+    terminal.textContent += text[index];
+    setTimeout(() => {
+      writeToTerminal(terminal, text, index + 1);
+    }, speed); // Consider increasing this delay as well
+    let hasFinishedWriting = true;
+  }
+}
+
+function onClickMe(event) { 
     changeCameraAngle();
-    openTerminal();
+    const terminalModal = document.getElementById("terminalModal");
+    openTerminal(terminalModal);
     const terminal = document.getElementById("terminal");
     terminal.textContent = ''; // Clear the terminal if you want to
-    document.getElementById("terminalModal").style.display = "block"; // Show the terminal
+    document.getElementById("terminalModal").style.display = "flex"; // Show the terminal
     const firstMessage = "Enter Password: ********";
     const secondMessage = "Compiling source files...\n";
     const thirdMessage = "Linking...\n";
@@ -313,45 +351,44 @@ W W W  EEE    L     C     O   O M M M EEE
 W W W  E      L     C     O   O M   M E    
 W   W  EEEEE  LLLLL  CCCC  OOO  M   M EEEEE`;
 
-    const typeSpeed = 40; // Speed of typing
-
+    var typeSpeed = 15
+    var textDelay = 3000
     setTimeout(() => {
         writeToTerminal(terminal, firstMessage, 0);
-        let hasFinishedWriting = false;
-    }, 3000);
+    }, textDelay);
 
     setTimeout(() => {
         terminal.textContent = ''; // Clear the terminal if you want to
-        writeToTerminal(terminal, secondMessage, 0);
+        writeToTerminal(terminal, secondMessage, 0,typeSpeed);
         let hasFinishedWriting = false;
-    }, 5000 + firstMessage.length * typeSpeed);
+    }, textDelay + (firstMessage.length) * typeSpeed);
 
     setTimeout(() => {
-        writeToTerminal(terminal, thirdMessage, 0);
+        writeToTerminal(terminal, thirdMessage, 0,typeSpeed);
         let hasFinishedWriting = false;
-    }, 7000 + (firstMessage.length + secondMessage.length) * typeSpeed);
+    }, textDelay + (firstMessage.length + secondMessage.length) * typeSpeed);
 
     setTimeout(() => {
-        writeToTerminal(terminal, fourthMessage, 0);
+        writeToTerminal(terminal, fourthMessage, 0,typeSpeed);
         let hasFinishedWriting = false;
-    }, 9000 + (firstMessage.length + secondMessage.length + thirdMessage.length) * typeSpeed);
+    }, textDelay + (firstMessage.length + secondMessage.length + thirdMessage.length) * typeSpeed);
 
     setTimeout(() => {
-        writeToTerminalFaster(terminal, fifthMessage, 0);
+        writeToTerminalFaster(terminal, fifthMessage, 0,typeSpeed);
         let hasFinishedWriting = false;
-    }, 12000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length) * typeSpeed);
+    }, textDelay + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length) * typeSpeed);
 
     setTimeout(() => {
         terminal.textContent = ''; // Clear the terminal
         let hasFinishedWriting = false;
         terminal.innerHTML = terminal.innerHTML = '<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; margin-top: -50px;"><span style="font-size: 80px; text-align: center;">BRYCE BENNETT</span><span style="font-size: 40px; text-align: center;">Graphic Designer</span></div>';
 
-    }, 15000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
+    }, textDelay + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
 
     setTimeout(() => {
         insertButtonsIntoTerminal(terminal);
         let hasFinishedWriting = false;
-    }, 15000 + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
+    }, textDelay + (firstMessage.length + secondMessage.length + thirdMessage.length + fourthMessage.length + fifthMessage.length) * typeSpeed);
     let hasFinishedWriting = true;
 }
 
@@ -364,22 +401,17 @@ function writeToTerminalFaster(terminal, message, index) {
 }
 
 
-function openTerminal() {
-    // Delay for 2 seconds (2000 milliseconds) before opening the terminal
+function openTerminal(terminalModal) {
     setTimeout(() => {
-        const modal = document.getElementById("terminalModal");
-        modal.style.visibility = "visible";
+        
+        const clickMeButton = document.getElementById("clickMe");
+        clickMeButton.style.display = "none"; // Hide the button
 
-        const closeBtn = document.getElementsByClassName("close")[0];
-        closeBtn.onclick = () => { modal.style.display = "none"; };
-
-        window.onclick = (event) => {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        };
-    }, 2000);  // Change 2000 to the number of milliseconds you'd like to delay
+        terminalModal.style.display = "flex"; // Show the button
+    }, 2000);
 }
+
+
 
 function animate() {
     requestAnimationFrame(animate);

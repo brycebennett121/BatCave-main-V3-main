@@ -74,6 +74,13 @@
       /* Center horizontally */
       align-items: center;
       /* Center vertically */
+      box-sizing: border-box;
+      
+      position: fixed;
+      left: 52%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      
     }
 
     .modal-content {
@@ -87,9 +94,11 @@
       width: 1300px;
       height: 800px;
       box-sizing: border-box;
+      
     }
 
     h2 {
+      
       margin: 0;
       padding: 10px;
       color: white;
@@ -114,18 +123,18 @@
       text-shadow: 0 0 5px white;
       box-sizing: border-box;
       top: 48%;
-      left: 52%;
+      left: 50%;
+      z-index: 9998;
     }
 
     #terminalModal {
       box-sizing: border-box;
-      visibility: hidden;
       display: none;
       position: fixed;
       left: 52%;
       top: 48%;
       transform: translate(-50%, -50%);
-      z-index: 9999;
+      z-index: 9998;
     }
 
     #clickMe {
@@ -171,6 +180,14 @@
       /* Black text */
       text-shadow: 0 0 5px #000000;
     }
+
+    #portfolioTerminalModal {
+      display: none;
+      z-index: 99999;
+    }
+
+
+
   </style>
 </head>
 <script type="module" src="main.js"></script>
@@ -199,48 +216,18 @@
     });
   }
 
-  let hasFinishedWriting = false;
-  function writeToTerminal(terminal, text, index) {
-    if (hasFinishedWriting) return;
-    if (index < text.length) {
-      terminal.textContent += text[index];
-      setTimeout(() => {
-        writeToTerminal(terminal, text, index + 1);
-      }, 100); // Consider increasing this delay as well
-      let hasFinishedWriting = true;
-    }
-  }
 </script>
 
-<script type="module" src="main.js"></script>
-<script>
-  progress = 0; // Initialize to 0
-  maxProgress = 100; // Maximum value for the progress bar
-
-  // Update the progress bar every 500ms
-  interval = setInterval(() => {
-    if (progress < maxProgress) {
-      progress += 10; // Increase the progress by 10 each time
-      document.getElementById("progress-bar").style.width = `${progress}%`;
-    }
-    if (progress >= maxProgress) {
-      clearInterval(interval); // Stop the interval
-      hideLoadingScreen(); // Call the function to hide the loading screen
-    }
-  }, 200); // Update every 500 milliseconds
-
-  function hideLoadingScreen() {
-    document.getElementById("loading-screen").style.opacity = "0"; // Fade out the loading screen
-    setTimeout(() => {
-      document.getElementById("loading-screen").style.display = "none"; // Hide the loading screen
-    }, 2000); // Wait for the fade-out transition to complete
-  }
-</script>
 
 <body>
   <button id="clickMe">Click Me!</button>
 
   <div id="fade-overlay"></div>
+  <div id="portfolioTerminalModal" class="modal">
+    <div id="portfolioTerminal" class="modal-content"></div>
+  </div>
+    
+  
 
   <div id="loading-screen">
     <div id="image-container">
@@ -251,6 +238,7 @@
     </div>
   </div>
 
+  
   <div id="terminalModal" class="modal">
     <div class="modal-content">
       <div id="terminal"></div>
