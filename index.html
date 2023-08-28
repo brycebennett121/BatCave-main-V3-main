@@ -54,7 +54,22 @@
     #image {
       max-width: 100%;
       max-height: 100%;
+      animation: fadeInOut 3s infinite;
+      /* Added animation */
     }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
 
     #fade-overlay {
       position: fixed;
@@ -136,6 +151,30 @@
       transform: translate(-50%, -50%);
       z-index: 9998;
     }
+
+    #image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-item img {
+  width: 100%;
+  height: auto;
+  border: 2px solid white;
+  box-shadow: 0 0 5px white;
+}
+
+.image-item {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.image-item:hover {
+  transform: scale(1.1);
+}
+
 
     #clickMe {
       position: absolute;
@@ -223,9 +262,12 @@
   <button id="clickMe">Click Me!</button>
 
   <div id="fade-overlay"></div>
-  <div id="portfolioTerminalModal" class="modal">
-    <div id="portfolioTerminal" class="modal-content"></div>
+  <!-- Add this part inside your portfolioTerminalModal div -->
+<div id="portfolioTerminalModal" class="modal">
+  <div id="portfolioTerminal" class="modal-content">
   </div>
+</div>
+
     
   
 

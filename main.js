@@ -23,7 +23,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.2);
 directionalLight.position.set(0, 1, 1).normalize();
@@ -186,7 +186,7 @@ loader2.load('ocean.glb', (gltf) => {
     });
 
     // Change playback speed of all ocean animations
-    const playbackSpeed = 40; // 2 times the normal speed
+    const playbackSpeed = 2; // 2 times the normal speed
     oceanActions.forEach(action => {
         action.setEffectiveTimeScale(playbackSpeed);
         hideLoadingScreen();
@@ -236,7 +236,7 @@ moonlight.position.set(-50, 20, -40); // set position to wherever you want the m
 scene.add(moonlight);
 
 // Create Light Emitted by Moon
-const moonLight = new THREE.PointLight(0xffffff, 40, 100000);  // color, intensity, distance
+const moonLight = new THREE.PointLight(0xffffff, 400, 100000);  // color, intensity, distance
 moonLight.position.set(-50, 20, -40); // set light position at the same position as the moon
 scene.add(moonLight);
 
@@ -351,8 +351,8 @@ W W W  EEE    L     C     O   O M M M EEE
 W W W  E      L     C     O   O M   M E    
 W   W  EEEEE  LLLLL  CCCC  OOO  M   M EEEEE`;
 
-    var typeSpeed = 15
-    var textDelay = 3000
+    var typeSpeed = 20
+    var textDelay = 5000
     setTimeout(() => {
         writeToTerminal(terminal, firstMessage, 0);
     }, textDelay);
