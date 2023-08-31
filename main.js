@@ -320,8 +320,40 @@ function openPortfolioTerminal() {
     const portfolioTerminal = document.getElementById("portfolioTerminal");
     portfolioTerminal.innerHTML = "<h1>My Portfolio</h1>";
 
+        // Clear existing content
+        portfolioTerminal.innerHTML = "";
+    
+        // Add project information
+        const projects = [
+            {
+                title: "Project 1",
+                description: "Description of project 1.",
+                image: "project1.jpg",
+                link: "project1.html"
+            },
+            {
+                title: "Project 2",
+                description: "Description of project 2.",
+                image: "project2.jpg",
+                link: "project2.html"
+            },
+            // Add more projects as needed
+        ];
+    
+        projects.forEach(project => {
+            const projectHTML = `
+                <div class="project">
+                    <h2>${project.title}</h2>
+                    <p>${project.description}</p>
+                    <img src="${project.image}" alt="${project.title}" />
+                    <a href="${project.link}" target="_blank">View Project</a>
+                </div>
+            `;
+            portfolioTerminal.innerHTML += projectHTML;
+        });
+    }
     // Insert your portfolio content here. You can use HTML and JavaScript to create an interactive terminal for your projects.
-}
+
 function writeToTerminal(terminal, text, index,speed) {
   if (hasFinishedWriting) return;
   if (index < text.length) {
@@ -351,7 +383,7 @@ W W W  EEE    L     C     O   O M M M EEE
 W W W  E      L     C     O   O M   M E    
 W   W  EEEEE  LLLLL  CCCC  OOO  M   M EEEEE`;
 
-    var typeSpeed = 20
+    var typeSpeed = 25
     var textDelay = 5000
     setTimeout(() => {
         writeToTerminal(terminal, firstMessage, 0);
@@ -401,15 +433,20 @@ function writeToTerminalFaster(terminal, message, index) {
 }
 
 
+// Open terminal after a 4-second delay
 function openTerminal(terminalModal) {
-    setTimeout(() => {
+    setTimeout(() => {  // Wait for 4 seconds
         
+        // Get the 'clickMe' button and hide it
         const clickMeButton = document.getElementById("clickMe");
-        clickMeButton.style.display = "none"; // Hide the button
-
-        terminalModal.style.display = "flex"; // Show the button
-    }, 2000);
+        clickMeButton.style.display = "none";
+        
+        // Show the terminal modal
+        terminalModal.style.display = "flex";
+        
+    }, 4000);
 }
+
 
 
 
